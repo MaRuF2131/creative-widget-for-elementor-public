@@ -14,13 +14,15 @@ const CheckoutForm = ({ contest, close, onSuccess }) => {
   const elements = useElements();
   const searchParams = useSearchParams();
   const widget = searchParams.get("widget") || "";
+  console.log(widget);
+  
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
     domain: "",
-    plugin: widget || "",
+    plugin: widget || "Select Plugin",
   });
 
   // 👉 Next Step Validation
@@ -153,7 +155,7 @@ const CheckoutForm = ({ contest, close, onSuccess }) => {
                 setFormData({ ...formData, plugin: e.target.value })
               }
             >
-              <option value="">-- Select Plugin --</option>
+              <option value={formData.plugin}>{formData.plugin}</option>
               {plugins.map((p) => (
                 <option key={p} value={p}>{p}</option>
               ))}
