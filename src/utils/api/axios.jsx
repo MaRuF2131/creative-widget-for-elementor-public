@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
- baseURL: process.env.NEXT_BASE_URL || "http://localhost:5000", 
+ baseURL: process.env.NEXT_BASE_URL, 
 /* baseURL: 'https://app-orbit-server-green.vercel.app', */ 
   withCredentials: true
 });
