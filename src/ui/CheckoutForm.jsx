@@ -43,7 +43,6 @@ const CheckoutForm = ({ contest, close, onSuccess }) => {
 
     try {
       const { data } = await axiosInstance.post("/api/payments/create-intent", {
-        contestId: contest?._id,
         ...formData,
       });
 
