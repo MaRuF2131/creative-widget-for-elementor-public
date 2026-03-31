@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import toast from "react-hot-toast";
 import axiosInstance from "@/utils/api/axios";
+import { useParams, useSearchParams } from "next/navigation";
 
 const domains = ["example.com", "myshop.net", "portfolio.dev"];
 const plugins = ["SEO Booster", "Speed Optimizer", "Security Pro"];
@@ -11,14 +12,15 @@ const plugins = ["SEO Booster", "Speed Optimizer", "Security Pro"];
 const CheckoutForm = ({ contest, close, onSuccess }) => {
   const stripe = useStripe();
   const elements = useElements();
-
+  const searchParams = useSearchParams();
+  const widget = searchParams.get("widget") || "";
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
     domain: "",
-    plugin: "",
+    plugin: widget || "",
   });
 
   // 👉 Next Step Validation
