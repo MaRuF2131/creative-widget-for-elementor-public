@@ -63,8 +63,25 @@ const CheckoutForm = ({ contest, close, onSuccess }) => {
         toast.error(result.error.message);
       } else {
         toast.success("Payment successful 🎉");
-        onSuccess?.();
-        close?.();
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/payments/invoice/${data?.paymentIntentId}`
+          );
+
+          const blob = await res.blob();
+
+          const url = window.URL.createObjectURL(blob);
+
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "invoice.pdf";
+
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+
+          window.URL.revokeObjectURL(url);
+/*         onSuccess?.();
+        close?.(); */
       }
     } catch (err) {
       toast.error(err?.response?.data?.message || "Payment failed");
